@@ -1,5 +1,8 @@
 package com.coco;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class WXAthtUil {
 
 	/**
@@ -22,9 +25,17 @@ public class WXAthtUil {
 			state = "WXAthtUil";
 		}
 		
+		String redirect_uri_encode = null;
+		try {
+			redirect_uri_encode = URLEncoder.encode(redirect_uri, "utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		String AuthorizeURL = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=";
 	 
-		return "redirect:"+AuthorizeURL+appid+"&redirect_uri="+redirect_uri+"&response_type=code&scope=snsapi_base&state="+state+"&connect_redirect=1#wechat_redirect";
+		return "redirect:"+AuthorizeURL+appid+"&redirect_uri="+redirect_uri_encode+"&response_type=code&scope=snsapi_base&state="+state+"&connect_redirect=1#wechat_redirect";
 		
 		
 	}
